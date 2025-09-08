@@ -12,7 +12,7 @@ const HeroSection = () => {
           alt="Luxury cosmetics hero"
           className="w-full h-full object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/20 to-transparent" />
       </div>
 
       {/* Floating Elements */}
@@ -47,6 +47,7 @@ const HeroSection = () => {
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary-hover text-primary-foreground font-heading font-semibold px-8 py-4 rounded-lg hover-lift hover-glow group"
+              onClick={() => window.location.href = '/products'}
             >
               Shop Collection
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />

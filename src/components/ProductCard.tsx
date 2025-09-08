@@ -1,6 +1,7 @@
 import { Heart, Star, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductCardProps {
   id: number;
@@ -29,11 +30,21 @@ const ProductCard = ({
   isNew = false,
   isSale = false,
 }: ProductCardProps) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useCart();
+  
+  const isWishlisted = isInWishlist(id);
 
   const toggleWishlist = () => {
-    setIsWishlisted(!isWishlisted);
+    if (isWishlisted) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist({ id, name, price, image, brand });
+    }
+  };
+
+  const handleAddToCart = () => {
+    addToCart({ id, name, price, image });
   };
 
   const formatPrice = (price: number) => {
@@ -171,6 +182,7 @@ const ProductCard = ({
             size="icon"
             variant="ghost"
             className="hover:bg-primary hover:text-primary-foreground hover-scale"
+            onClick={handleAddToCart}
           >
             <ShoppingBag className="h-4 w-4" />
           </Button>

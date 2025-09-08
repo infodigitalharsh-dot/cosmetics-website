@@ -5,6 +5,8 @@ import BrandStory from "@/components/BrandStory";
 import CategoryGrid from "@/components/CategoryGrid";
 import SocialProof from "@/components/SocialProof";
 import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
+import WishlistDrawer from "@/components/WishlistDrawer";
 
 const Homepage = () => {
   return (
@@ -18,6 +20,8 @@ const Homepage = () => {
         <SocialProof />
       </main>
       <Footer />
+      <CartDrawer />
+      <WishlistDrawer />
     </div>
   );
 };
