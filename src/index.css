@@ -2,95 +2,154 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* LuxeGlow Premium Cosmetics Design System 
+All colors MUST be HSL. Semantic tokens for luxury beauty brand.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Brand Colors - Premium Cosmetics Palette */
+    --background: 0 0% 100%;                    /* Pure white */
+    --background-cream: 39 79% 95%;             /* Soft cream */
+    --foreground: 0 0% 10%;                     /* Deep charcoal */
+    --foreground-medium: 0 0% 40%;              /* Medium gray */
+    --foreground-light: 0 0% 60%;               /* Light gray */
 
+    /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 10%;
+    --card-cream: 39 79% 95%;
+    --card-shadow: 0 0% 0%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Interactive Elements */
+    --primary: 15 50% 80%;                      /* Blush pink primary */
+    --primary-foreground: 0 0% 10%;
+    --primary-hover: 15 50% 75%;
+    --primary-glow: 15 50% 90%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Secondary Brand Colors */
+    --secondary: 120 25% 85%;                   /* Sage green */
+    --secondary-foreground: 0 0% 10%;
+    --secondary-hover: 120 25% 80%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Accent Colors */
+    --accent: 270 25% 90%;                      /* Lavender mist */
+    --accent-foreground: 0 0% 10%;
+    --accent-hover: 270 25% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Elements */
+    --muted: 30 14% 96%;                        /* Warm gray */
+    --muted-foreground: 0 0% 40%;
+    --muted-cool: 240 9% 94%;                   /* Cool gray */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* UI States */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders & Inputs */
+    --border: 0 0% 90%;
+    --border-light: 0 0% 95%;
+    --input: 0 0% 100%;
+    --input-border: 0 0% 85%;
+    --ring: 15 50% 80%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Luxury Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(15 50% 90%), hsl(15 50% 85%));
+    --gradient-secondary: linear-gradient(135deg, hsl(120 25% 90%), hsl(120 25% 85%));
+    --gradient-hero: linear-gradient(135deg, hsl(39 79% 98%), hsl(15 50% 95%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(39 79% 98%));
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Shadows - Luxury elevation system */
+    --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.04);
+    --shadow-md: 0 4px 20px hsl(0 0% 0% / 0.08);
+    --shadow-lg: 0 8px 30px hsl(0 0% 0% / 0.12);
+    --shadow-glow: 0 0 40px hsl(15 50% 80% / 0.3);
+    --shadow-product: 0 10px 40px hsl(0 0% 0% / 0.1);
 
-    --radius: 0.5rem;
+    /* Animation Variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-elegant: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
+    /* Spacing System - 8px grid */
+    --space-xs: 0.5rem;    /* 8px */
+    --space-sm: 1rem;      /* 16px */
+    --space-md: 1.5rem;    /* 24px */
+    --space-lg: 2rem;      /* 32px */
+    --space-xl: 3rem;      /* 48px */
+    --space-2xl: 4rem;     /* 64px */
+    --space-3xl: 5rem;     /* 80px */
+
+    /* Border Radius System */
+    --radius: 0.75rem;      /* 12px */
+    --radius-sm: 0.5rem;    /* 8px */
+    --radius-lg: 1rem;      /* 16px */
+    --radius-full: 9999px;
+
+    /* Typography Scale */
+    --text-xs: 0.75rem;     /* 12px */
+    --text-sm: 0.875rem;    /* 14px */
+    --text-base: 1rem;      /* 16px */
+    --text-lg: 1.125rem;    /* 18px */
+    --text-xl: 1.25rem;     /* 20px */
+    --text-2xl: 1.5rem;     /* 24px */
+    --text-3xl: 1.875rem;   /* 30px */
+    --text-4xl: 2.25rem;    /* 36px */
+    --text-5xl: 3rem;       /* 48px */
+    --text-6xl: 3.75rem;    /* 60px */
+
+    /* Sidebar (keeping existing) */
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 0 0% 40%;
+    --sidebar-primary: 15 50% 80%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 39 79% 95%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 15 50% 80%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode with luxury feel */
+    --background: 0 0% 8%;
+    --background-cream: 0 0% 12%;
+    --foreground: 0 0% 95%;
+    --foreground-medium: 0 0% 70%;
+    --foreground-light: 0 0% 50%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --card-cream: 0 0% 12%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --primary: 15 50% 70%;
+    --primary-foreground: 0 0% 10%;
+    --primary-hover: 15 50% 75%;
+    --primary-glow: 15 50% 60%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 120 25% 60%;
+    --secondary-foreground: 0 0% 10%;
+    --secondary-hover: 120 25% 65%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --accent: 270 25% 70%;
+    --accent-foreground: 0 0% 10%;
+    --accent-hover: 270 25% 75%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --muted-cool: 240 3% 15%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --border: 0 0% 20%;
+    --border-light: 0 0% 25%;
+    --input: 0 0% 10%;
+    --input-border: 0 0% 25%;
+    --ring: 15 50% 70%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --gradient-primary: linear-gradient(135deg, hsl(15 50% 25%), hsl(15 50% 20%));
+    --gradient-secondary: linear-gradient(135deg, hsl(120 25% 25%), hsl(120 25% 20%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 12%), hsl(15 50% 15%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 10%), hsl(0 0% 12%));
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --shadow-glow: 0 0 40px hsl(15 50% 50% / 0.2);
   }
 }
 
@@ -100,6 +159,174 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Typography Classes */
+  .font-heading {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  .font-body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .font-accent {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+  }
+
+  .font-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Luxury Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hover-scale {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Gradient Text Effect */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: var(--radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary-hover));
+  }
+}
+
+/* Keyframes for animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+  }
+  to {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.4);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  .font-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  
+  .font-body {
+    font-size: clamp(0.9rem, 3vw, 1rem);
   }
 }
