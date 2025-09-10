@@ -2,6 +2,7 @@ import { Heart, Star, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   id: number;
@@ -32,6 +33,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useCart();
+  const navigate = useNavigate();
   
   const isWishlisted = isInWishlist(id);
 
@@ -45,6 +47,10 @@ const ProductCard = ({
 
   const handleAddToCart = () => {
     addToCart({ id, name, price, image });
+  };
+
+  const handleCardClick = () => {
+    navigate(`/product/${id}`);
   };
 
   const formatPrice = (price: number) => {
@@ -69,9 +75,10 @@ const ProductCard = ({
 
   return (
     <div
-      className="group relative bg-card rounded-lg shadow-sm hover:shadow-product transition-all duration-300 overflow-hidden hover-lift"
+      className="group relative bg-card rounded-lg shadow-sm hover:shadow-product transition-all duration-300 overflow-hidden hover-lift cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
     >
       {/* Badge */}
       {(isNew || isSale) && (
@@ -93,7 +100,10 @@ const ProductCard = ({
       <Button
         variant="ghost"
         size="icon"
-        onClick={toggleWishlist}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleWishlist();
+        }}
         className={`absolute top-3 right-3 z-10 bg-background/80 backdrop-blur-sm hover:bg-background transition-all duration-300 ${
           isHovered ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
         }`}
@@ -113,16 +123,8 @@ const ProductCard = ({
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         
-        {/* Quick View Overlay */}
-        <div
-          className={`absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center transition-all duration-300 ${
-            isHovered ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <Button variant="default" className="animate-scale-in">
-            Quick View
-          </Button>
-        </div>
+      {/* Quick View Overlay - Remove blur and quick view button */}
+      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none" />
       </div>
 
       {/* Product Info */}
@@ -182,7 +184,10 @@ const ProductCard = ({
             size="icon"
             variant="ghost"
             className="hover:bg-primary hover:text-primary-foreground hover-scale"
-            onClick={handleAddToCart}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddToCart();
+            }}
           >
             <ShoppingBag className="h-4 w-4" />
           </Button>

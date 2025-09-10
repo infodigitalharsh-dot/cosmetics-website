@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { ShoppingBag, Heart, Search, User, Menu, X } from "lucide-react";
+import { ShoppingBag, Heart, Search, User, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const location = useLocation();
   const { cartCount, wishlistCount, setIsCartOpen, setIsWishlistOpen } = useCart();
+  const { isAuthenticated, user, logout } = useAuth();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
@@ -84,14 +87,53 @@ const Navigation = () => {
             </Button>
 
             {/* Account */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:bg-muted hover-scale"
-              aria-label="User account"
-            >
-              <User className="h-4 w-4 sm:h-5 sm:w-5" />
-            </Button>
+            {isAuthenticated ? (
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-muted hover-scale flex items-center space-x-1"
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  aria-label="User account"
+                >
+                  <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <ChevronDown className="h-3 w-3" />
+                </Button>
+                
+                {isProfileOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-background border border-border rounded-lg shadow-elegant py-2 z-50 animate-fade-in">
+                    <div className="px-4 py-2 border-b border-border">
+                      <p className="font-body font-medium text-sm text-foreground">{user?.name}</p>
+                      <p className="font-body text-xs text-foreground-medium">{user?.email}</p>
+                    </div>
+                    <Link 
+                      to="/profile" 
+                      className="block px-4 py-2 text-sm font-body text-foreground hover:bg-muted transition-smooth"
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <button 
+                      onClick={() => { logout(); setIsProfileOpen(false); }}
+                      className="block w-full text-left px-4 py-2 text-sm font-body text-foreground hover:bg-muted transition-smooth"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-muted hover-scale"
+                  aria-label="User account"
+                >
+                  <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                </Button>
+              </Link>
+            )}
 
             {/* Wishlist */}
             <Button
