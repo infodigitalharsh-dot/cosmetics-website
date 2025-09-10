@@ -81,6 +81,9 @@ const Products = () => {
       image: serumImg,
       colors: []
     }
+    }
+  ];
+  
   const [filteredProducts, setFilteredProducts] = useState(products);
 
   // Filter and search logic

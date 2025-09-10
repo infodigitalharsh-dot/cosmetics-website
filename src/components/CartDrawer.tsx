@@ -122,7 +122,14 @@ const CartDrawer = () => {
                 </span>
               </div>
               <div className="space-y-3">
-                <Button className="w-full hover-lift" size="lg">
+                <Button 
+                  className="w-full hover-lift" 
+                  size="lg"
+                  onClick={() => {
+                    setIsCartOpen(false);
+                    window.location.href = '/checkout';
+                  }}
+                >
                   Checkout
                 </Button>
                 <Button 
