@@ -1,58 +1,49 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import productsImage from "@/assets/products-hero.jpg";
+import { products, categories } from "@/data/products";
+import { useNavigate } from "react-router-dom";
 
 const CategoryGrid = () => {
-  const categories = [
+  const navigate = useNavigate();
+  
+  // Create category data from actual product categories and get sample images
+  const categoryImages = {
+    "Skincare": products.find(p => p.category === "Skincare")?.image || "",
+    "Makeup": products.find(p => p.category === "Makeup")?.image || "",
+    "Body Care": products.find(p => p.category === "Body Care")?.image || "",
+    "Lip Care": products.find(p => p.category === "Lip Care")?.image || "",
+  };
+
+  const categoryData = [
     {
       id: 1,
-      title: "Face",
-      subtitle: "Foundation & Concealer",
-      image: productsImage,
-      productCount: 24,
-      featured: true,
+      title: "Skincare",
+      subtitle: "Serums & Moisturizers",
+      image: categoryImages["Skincare"],
+      productCount: products.filter(p => p.category === "Skincare").length,
     },
     {
       id: 2,
-      title: "Eyes",
-      subtitle: "Shadows & Liners",
-      image: productsImage,
-      productCount: 18,
-      featured: false,
+      title: "Makeup",
+      subtitle: "Foundation & Colors",
+      image: categoryImages["Makeup"],
+      productCount: products.filter(p => p.category === "Makeup").length,
     },
     {
       id: 3,
-      title: "Lips",
-      subtitle: "Lipsticks & Glosses",
-      image: productsImage,
-      productCount: 32,
-      featured: true,
+      title: "Body Care",
+      subtitle: "Lotions & Treatments",
+      image: categoryImages["Body Care"],
+      productCount: products.filter(p => p.category === "Body Care").length,
     },
     {
       id: 4,
-      title: "Skincare",
-      subtitle: "Serums & Moisturizers",
-      image: productsImage,
-      productCount: 16,
-      featured: false,
+      title: "Lip Care",
+      subtitle: "Balms & Treatments",
+      image: categoryImages["Lip Care"],
+      productCount: products.filter(p => p.category === "Lip Care").length,
     },
-    {
-      id: 5,
-      title: "Tools",
-      subtitle: "Brushes & Accessories",
-      image: productsImage,
-      productCount: 12,
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Sets",
-      subtitle: "Gift & Travel Sets",
-      image: productsImage,
-      productCount: 8,
-      featured: true,
-    },
-  ];
+  ].filter(category => category.productCount > 0); // Only show categories with products
 
   return (
     <section className="py-16 lg:py-24 bg-background-cream">
@@ -67,20 +58,22 @@ const CategoryGrid = () => {
           </p>
         </div>
 
-        {/* Category Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {categories.map((category, index) => (
+        {/* Category Bento Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-12">
+          {categoryData.map((category, index) => (
             <div
               key={category.id}
               className={`
                 group relative overflow-hidden rounded-2xl shadow-md hover:shadow-product transition-all duration-500 hover-lift cursor-pointer animate-fade-in
-                ${category.featured ? 'md:col-span-1 lg:row-span-2' : ''}
-                ${index === 0 ? 'lg:col-span-2' : ''}
+                ${index === 0 ? 'sm:col-span-2 lg:col-span-2 lg:row-span-2' : ''}
+                ${index === 1 ? 'lg:row-span-1' : ''}
+                ${index === 2 ? 'lg:row-span-1' : ''}
               `}
               style={{ animationDelay: `${index * 0.1}s` }}
+              onClick={() => navigate(`/products?category=${category.title}`)}
             >
               {/* Background Image */}
-              <div className="relative aspect-square lg:aspect-auto lg:h-full">
+              <div className={`relative ${index === 0 ? 'aspect-[2/1] lg:aspect-auto lg:h-full' : 'aspect-square'}`}>
                 <img
                   src={category.image}
                   alt={category.title}
@@ -90,18 +83,18 @@ const CategoryGrid = () => {
               </div>
 
               {/* Content Overlay */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 text-background">
+              <div className="absolute inset-0 flex flex-col justify-end p-4 lg:p-6 text-background">
                 {/* Product Count Badge */}
                 <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm text-foreground px-3 py-1 rounded-full text-sm font-body">
                   {category.productCount} items
                 </div>
 
                 {/* Category Info */}
-                <div className="space-y-2 mb-4">
-                  <p className="text-sm font-body text-background/80 uppercase tracking-wider">
+                <div className="space-y-1 lg:space-y-2 mb-3 lg:mb-4">
+                  <p className="text-xs lg:text-sm font-body text-background/80 uppercase tracking-wider">
                     {category.subtitle}
                   </p>
-                  <h3 className="font-heading text-2xl lg:text-3xl font-bold">
+                  <h3 className="font-heading text-xl lg:text-2xl xl:text-3xl font-bold">
                     {category.title}
                   </h3>
                 </div>
@@ -128,6 +121,7 @@ const CategoryGrid = () => {
           <Button 
             variant="outline" 
             size="lg"
+            onClick={() => navigate("/products")}
             className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-heading font-semibold px-8 py-3 rounded-lg hover-lift"
           >
             View All Categories

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Search, Filter, X, Grid3X3, List, Star, ShoppingCart, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,10 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { products, categories, brands, priceRanges, sortOptions, type Product } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
+import WishlistDrawer from "@/components/WishlistDrawer";
 
 const Products: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,6 +29,10 @@ const Products: React.FC = () => {
   const navigate = useNavigate();
 
   const productsPerPage = 12;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = products.filter((product) => {
@@ -271,6 +279,7 @@ const Products: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       {/* Header */}
       <div className="bg-gradient-hero border-b border-border">
         <div className="container mx-auto px-4 py-12">
@@ -481,6 +490,10 @@ const Products: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      <Footer />
+      <CartDrawer />
+      <WishlistDrawer />
     </div>
   );
 };
